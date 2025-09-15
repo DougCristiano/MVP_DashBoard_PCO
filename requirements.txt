@@ -1,0 +1,22 @@
+# Dependências principais para o Dashboard de Análise IN Junior
+# Execute: pip install -r requirements.txt
+
+# Framework web para dashboard
+streamlit>=1.28.0
+
+# Manipulação e análise de dados
+pandas>=1.5.0
+numpy>=1.24.0
+
+# Visualizações interativas
+plotly>=5.15.0
+
+# Visualizações estatísticas
+seaborn>=0.12.0
+matplotlib>=3.6.0
+
+# Análises estatísticas
+scipy>=1.10.0
+
+# Utilitários
+warnings
