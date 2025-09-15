@@ -2,21 +2,18 @@
 # Execute: pip install -r requirements.txt
 
 # Framework web para dashboard
-streamlit>=1.28.0
+streamlit
 
 # Manipulação e análise de dados
-pandas>=1.5.0
-numpy>=1.24.0
+pandas
+numpy
 
 # Visualizações interativas
-plotly>=5.15.0
+plotly
 
 # Visualizações estatísticas
-seaborn>=0.12.0
-matplotlib>=3.6.0
+seaborn
+matplotlib
 
 # Análises estatísticas
-scipy>=1.10.0
-
-# Utilitários
-warnings
+scipy
