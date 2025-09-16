@@ -39,7 +39,7 @@ class INJuniorSurveyAnalyzer:
         # Remove linhas completamente vazias
         self.df_processed = self.df_processed.dropna(how='all')
         
-        # Converte colunas numéricas (escalas de 1-5, 1-7, etc.)
+        # Converte colunas numéricas (escalas de 1-5, 1-5, etc.)
         numeric_columns = [
             'O quão organizada você considera a DE?',
             'O quão acessível é o seu/sua diretor(a)?',
@@ -214,7 +214,7 @@ def create_satisfaction_charts(analyzer):
             # Histograma
             fig_hist = px.histogram(
                 x=data, 
-                nbins=7,
+                nbins=5,
                 title="Distribuição da Satisfação Geral",
                 labels={'x': 'Nível de Satisfação', 'count': 'Frequência'},
                 color_discrete_sequence=['#1f77b4']
@@ -300,7 +300,7 @@ def create_organizational_charts(analyzer):
                 x=metrics_names,
                 y=metrics_values,
                 title="Avaliação da Estrutura Organizacional (Médias)",
-                labels={'x': 'Aspecto', 'y': 'Média (1-7)'},
+                labels={'x': 'Aspecto', 'y': 'Média (1-5)'},
                 color=metrics_values,
                 color_continuous_scale='viridis'
             )
@@ -330,7 +330,7 @@ def create_feedback_charts(analyzer):
                 x=metrics_names,
                 y=metrics_values,
                 title="Cultura de Feedback (Médias)",
-                labels={'x': 'Aspecto', 'y': 'Média (1-7)'},
+                labels={'x': 'Aspecto', 'y': 'Média (1-5)'},
                 color=metrics_values,
                 color_continuous_scale='plasma'
             )
@@ -352,8 +352,7 @@ def display_metrics_cards(report):
             satisfaction = report['satisfacao']['satisfacao_geral']
             st.metric(
                 label="😊 Satisfação Média",
-                value=f"{satisfaction['media']}/7",
-                delta=f"±{satisfaction['desvio_padrao']}"
+                value=f"{satisfaction['media']}/5",
             )
     
     with col3:
@@ -419,9 +418,9 @@ def main():
                     sat = report['satisfacao']['satisfacao_geral']
                     col1, col2, col3 = st.columns(3)
                     with col1:
-                        st.info(f"**Média:** {sat['media']}/7")
+                        st.info(f"**Média:** {sat['media']}/5")
                     with col2:
-                        st.info(f"**Mediana:** {sat['mediana']}/7")
+                        st.info(f"**Mediana:** {sat['mediana']}/5")
                     with col3:
                         st.info(f"**Desvio Padrão:** {sat['desvio_padrao']}")
             
