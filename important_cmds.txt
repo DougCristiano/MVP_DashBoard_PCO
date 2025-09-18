@@ -1,0 +1,6 @@
+# Forma mais simples
+./run_dashboard.sh
+
+# Ou manualmente  
+source venv/bin/activate
+streamlit run app.py

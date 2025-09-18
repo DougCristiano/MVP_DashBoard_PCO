@@ -1,13 +1,119 @@
 # 📊 Dashboard de Análise - IN Junior
 
-Dashboard interativo para análise de dados da pesquisa de satisfação da IN Junior, desenvolvido em Python com Streamlit.
+Um dashboard interativo desenvolvido com Streamlit para análise de dados de pesquisas de satisfação da IN Junior.
 
-## 🚀 Funcionalidades
+## 🎯 Funcionalidades
 
-- ✅ **Upload de CSV**: Interface web para upload de arquivos
-- ✅ **Análise Automática**: Processamento e limpeza automática dos dados
-- ✅ **Visualizações Interativas**: Gráficos responsivos com Plotly
-- ✅ **Métricas Profissionais**: Estatísticas descritivas completas
+- 📈 **Análise de Satisfação**: Visualizações de satisfação geral dos membros
+- ⏰ **Carga de Trabalho**: Análise de distribuição de horas e projetos
+- 🏢 **Estrutura Organizacional**: Avaliação da organização e comunicação
+- 💬 **Cultura de Feedback**: Métricas de feedback entre membros
+- 🔄 **Cruzamentos de Dados**: Análises de correlação entre variáveis
+- 📊 **Dados Detalhados**: Visualização e download dos dados processados
+
+## 🚀 Como Executar
+
+### Opção 1: Script automático (Recomendado)
+```bash
+./run_dashboard.sh
+```
+
+### Opção 2: Manual
+```bash
+# 1. Ativar ambiente virtual
+source venv/bin/activate
+
+# 2. Instalar dependências (se necessário)
+pip install -r requirements.txt
+
+# 3. Executar dashboard
+streamlit run app.py
+```
+
+## 📂 Nova Estrutura Modular
+
+O projeto foi organizado em módulos para facilitar manutenção e expansão:
+
+```
+/MVP_DashBoard_PCO
+│
+├── app.py                          # 🚀 Interface principal
+├── run_dashboard.sh               # 🔧 Script de execução
+├── requirements.txt               # 📦 Dependências
+│
+├── data_analysis/                 # 🔍 Módulos de análise
+│   ├── survey_analyzer.py         # 📊 Classe principal de análise
+│   └── cruzamentos/              # 🔄 Cruzamentos específicos
+│       └── satisfacao_vs_carga.py # Exemplo de cruzamento
+│
+├── charts/                       # 📈 Módulos de visualização
+│   ├── satisfaction_charts.py    # Gráficos de satisfação
+│   ├── workload_charts.py        # Gráficos de carga de trabalho
+│   ├── organizational_charts.py  # Gráficos organizacionais
+│   └── feedback_charts.py        # Gráficos de feedback
+│
+└── utils/                        # 🛠️ Funções utilitárias
+    └── helpers.py                # Funções auxiliares
+```
+
+## ➕ Como Adicionar Novos Cruzamentos
+
+1. **Criar arquivo em `data_analysis/cruzamentos/`**:
+```python
+def analyze_novo_cruzamento(analyzer):
+    # Sua lógica de análise
+    pass
+
+def create_novo_cruzamento_charts(analyzer):
+    # Seus gráficos
+    pass
+```
+
+2. **Importar no `app.py`**:
+```python
+from data_analysis.cruzamentos.novo_cruzamento import create_novo_cruzamento_charts
+```
+
+3. **Adicionar na interface**:
+```python
+with tab5:  # Aba Cruzamentos
+    create_novo_cruzamento_charts(analyzer)
+```
+
+## 📋 Documentação Detalhada
+
+Para informações completas sobre a estrutura e como expandir o projeto:
+- 📖 [README_ESTRUTURA.md](README_ESTRUTURA.md) - Documentação detalhada da nova estrutura
+
+## 🔧 Tecnologias Utilizadas
+
+- **Frontend**: Streamlit
+- **Visualização**: Plotly, Matplotlib, Seaborn
+- **Análise de Dados**: Pandas, NumPy, SciPy
+- **Estatística**: Correlações de Pearson, testes de significância
+
+## ✅ Vantagens da Nova Estrutura
+
+- 🧹 **Código Limpo**: Cada módulo tem responsabilidade específica
+- 🔧 **Fácil Manutenção**: Alterações isoladas por funcionalidade
+- ➕ **Expansível**: Simples adicionar novos cruzamentos e gráficos
+- 👥 **Colaborativo**: Múltiplas pessoas podem trabalhar simultaneamente
+- 🧪 **Testável**: Cada módulo pode ser testado independentemente
+
+## 🎯 Próximos Passos
+
+- [ ] Adicionar mais tipos de cruzamentos
+- [ ] Implementar testes unitários
+- [ ] Criar sistema de configuração
+- [ ] Adicionar exportação de relatórios
+- [ ] Melhorar documentação com exemplos
+
+## 📞 Suporte
+
+Para dúvidas ou problemas, consulte:
+1. 📋 [README_ESTRUTURA.md](README_ESTRUTURA.md) para detalhes técnicos
+2. 🐛 Seção "Solução de Problemas" na documentação
+3. ✅ Verificar se o ambiente virtual está ativado
 - ✅ **Dashboard Responsivo**: Interface organizada por abas
 - ✅ **Download de Resultados**: Exportação dos dados processados
 
@@ -96,7 +202,7 @@ streamlit run app.py
 ## 📋 Formato dos Dados
 
 O CSV deve conter as seguintes colunas (ou similares):
-- Colunas de satisfação (escalas numéricas 1-7)
+- Colunas de satisfação (escalas numéricas 1-5)
 - Horas semanais de trabalho
 - Avaliações organizacionais
 - Métricas de feedback
