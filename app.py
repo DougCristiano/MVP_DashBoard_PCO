@@ -91,7 +91,7 @@ def main():
                         })
                     
                     if workload_summary:
-                        st.dataframe(pd.DataFrame(workload_summary), use_container_width=True)
+                        st.dataframe(pd.DataFrame(workload_summary), width="stretch")
             
             with tab3:
                 st.subheader("Estrutura Organizacional")
@@ -115,17 +115,30 @@ def main():
                 )
                 
                 if view_option == "Dados Processados":
-                    st.dataframe(analyzer.df_processed, use_container_width=True)
+                    st.dataframe(analyzer.df_processed, width="stretch")
                 
                 elif view_option == "Estatísticas Resumidas":
-                    numeric_cols = analyzer.df_processed.select_dtypes(include=[np.number]).columns
-                    if len(numeric_cols) > 0:
-                        st.dataframe(analyzer.df_processed[numeric_cols].describe(), use_container_width=True)
-                    else:
-                        st.warning("Nenhuma coluna numérica encontrada para estatísticas.")
+                    try:
+                        numeric_cols = analyzer.df_processed.select_dtypes(include=['number']).columns
+                        if len(numeric_cols) > 0:
+                            st.dataframe(analyzer.df_processed[numeric_cols].describe(), width="stretch")
+                        else:
+                            st.warning("Nenhuma coluna numérica encontrada para estatísticas.")
+                    except Exception as e:
+                        st.error(f"Erro ao gerar estatísticas: {str(e)}")
+                        st.info("Tentando método alternativo...")
+                        try:
+                            # Método alternativo
+                            numeric_data = analyzer.df_processed._get_numeric_data()
+                            if not numeric_data.empty:
+                                st.dataframe(numeric_data.describe(), width="stretch")
+                            else:
+                                st.warning("Nenhuma coluna numérica encontrada.")
+                        except:
+                            st.warning("Não foi possível gerar estatísticas para este dataset.")
                 
                 else:  # Dados Originais
-                    st.dataframe(df, use_container_width=True)
+                    st.dataframe(df, width="stretch")
                 
                 # Download dos dados processados
                 csv = analyzer.df_processed.to_csv(index=False)
@@ -138,6 +151,13 @@ def main():
         
         except Exception as e:
             st.error(f"Erro ao processar o arquivo: {str(e)}")
+            st.error(f"Tipo do erro: {type(e).__name__}")
+            
+            # Debug mais detalhado
+            with st.expander("🔍 Informações de Debug"):
+                import traceback
+                st.code(traceback.format_exc())
+            
             st.info("Verifique se o arquivo CSV está no formato correto.")
     
     else:

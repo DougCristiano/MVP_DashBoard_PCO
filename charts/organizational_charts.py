@@ -35,4 +35,4 @@ def create_organizational_charts(analyzer):
                 color_continuous_scale='viridis'
             )
             fig.update_layout(showlegend=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")

@@ -25,7 +25,7 @@ def create_satisfaction_charts(analyzer):
                 color_discrete_sequence=['#1f77b4']
             )
             fig_hist.update_layout(showlegend=False)
-            st.plotly_chart(fig_hist, use_container_width=True)
+            st.plotly_chart(fig_hist, width="stretch")
         
         with col2:
             # Box plot
@@ -35,4 +35,4 @@ def create_satisfaction_charts(analyzer):
                 labels={'y': 'Nível de Satisfação'}
             )
             fig_box.update_traces(marker_color='#ff7f0e')
-            st.plotly_chart(fig_box, use_container_width=True)
+            st.plotly_chart(fig_box, width="stretch")

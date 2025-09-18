@@ -34,4 +34,4 @@ def create_feedback_charts(analyzer):
                 color_continuous_scale='plasma'
             )
             fig.update_layout(showlegend=False)
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
