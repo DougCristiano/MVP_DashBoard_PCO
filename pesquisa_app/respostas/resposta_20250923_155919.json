@@ -1,0 +1,32 @@
+{
+    "dados_pessoais": {
+        "nome": "Douglas Neves",
+        "area": "Projetos",
+        "tempo_empresa": 8
+    },
+    "satisfacao": {
+        "satisfacao_geral": 4,
+        "satisfacao_area": 5,
+        "satisfacao_lideranca": 4
+    },
+    "ambiente": {
+        "clima_organizacional": 4,
+        "comunicacao": 2,
+        "trabalho_equipe": 3
+    },
+    "desenvolvimento": {
+        "oportunidades_crescimento": 3,
+        "capacitacao": 3,
+        "feedback": 2
+    },
+    "horas_dedicadas": {
+        "horas_semanais": 40,
+        "horas_capacitacao": 2
+    },
+    "feedback_aberto": {
+        "pontos_positivos": "Nenhum",
+        "pontos_melhoria": "Todos",
+        "sugestoes": "Não\n"
+    },
+    "timestamp": "2025-09-23T15:59:19.750157"
+}
