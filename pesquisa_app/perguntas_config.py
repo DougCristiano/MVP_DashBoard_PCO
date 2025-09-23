@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# Configuração das perguntas da pesquisa de clima organizacional
+# Estrutura: Seção -> Pergunta -> Detalhes (texto, tipo, opções, obrigatoriedade)
 
 PERGUNTAS = {
     "informacoes_pessoais": {

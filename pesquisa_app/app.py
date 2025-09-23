@@ -127,7 +127,7 @@ def mostrar_resultados(df):
 
 
 def main():
-    st.title("📝 Pesquisa de Clima Organizacional - IN Junior")
+    st.title(":wolf: Pesquisa de Clima Organizacional - IN Junior")
 
     tab1, tab2 = st.tabs(["Responder Pesquisa", "Ver Resultados"])
 

@@ -1,0 +1,58 @@
+{
+    "informacoes_pessoais": {
+        "ano_entrada": 2025,
+        "periodo_entrada": "1º Semestre",
+        "previsao_saida": "2 anos",
+        "diretoria": "Projetos"
+    },
+    "lideranca_e_gestao": {
+        "acessibilidade_diretor": 3,
+        "contato_diretoria_executiva": 1,
+        "comunicacao_diretoria": 3,
+        "delegacao_tarefas": 1,
+        "voz_nas_decisoes": 1,
+        "confianca_lideranca": 1,
+        "feedback_construtivo": 1,
+        "preocupacao_pessoal_gestor": 3,
+        "confianca_decisoes_lideranca_geral": 1
+    },
+    "satisfacao_e_orgulho": {
+        "satisfacao_geral": 1,
+        "sentimento_de_ser_ouvido": 3,
+        "orgulho_de_trabalhar": 1,
+        "orgulho_da_minha_atividade": 1,
+        "preocupacao_futuro_empresa": 3,
+        "satisfacao_estrutura_hierarquica": 1,
+        "recomendaria_empresa": 1
+    },
+    "ambiente_de_trabalho": {
+        "seguranca_assumir_riscos": 1,
+        "conforto_pedir_ajuda": 3,
+        "sentimento_pertencimento": 1,
+        "respeito_e_cordialidade": 1,
+        "conforto_cometer_erros": 5,
+        "sentimento_desconfortavel_discurso": 1,
+        "conforto_expressar_opiniao_divergente": 1,
+        "seguranca_emprego": 4,
+        "relacionamento_colegas": 1,
+        "espirito_cooperacao_diretoria": 3,
+        "resolucao_conflitos_equipe": 2
+    },
+    "cultura_e_bem_estar": {
+        "preocupacao_bem_estar_empresa": 5,
+        "valores_praticados_dia_a_dia": 1,
+        "responsabilidade_social_etica": 1,
+        "conforto_expressar_orientacao_sexual": 1,
+        "conforto_expressar_crencas_religiosas": 3,
+        "conforto_expressar_conviccoes_politicas": 4
+    },
+    "desenvolvimento_e_carreira": {
+        "sucesso_carreira_vida_profissional": 3,
+        "trabalho_reconhecido_familia": 3
+    },
+    "feedback_aberto": {
+        "pontos_positivos": "",
+        "pontos_melhoria": ""
+    },
+    "timestamp": "2025-09-23T17:42:37.309285"
+}
