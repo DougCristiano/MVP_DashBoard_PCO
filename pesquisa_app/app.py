@@ -8,11 +8,11 @@ import os
 # Configurações da página
 st.set_page_config(
     page_title="Pesquisa de Clima - IN Junior",
-    page_icon="📝",
+    page_icon="🐺",
     layout="wide"
 )
 
-# Estrutura das perguntas da pesquisa
+# Estrutura das perguntas da pesquisa (sem alterações)
 PERGUNTAS = {
     "dados_pessoais": {
         "titulo": "Dados Pessoais",
@@ -155,19 +155,48 @@ PERGUNTAS = {
     }
 }
 
+# ## ALTERAÇÃO AQUI: Função 'salvar_resposta' foi modificada ##
 def salvar_resposta(respostas):
-    """Salva as respostas em um arquivo JSON"""
-    respostas['timestamp'] = datetime.now().isoformat()
+    """Salva as respostas em um arquivo JSON e anexa a um arquivo CSV."""
+    timestamp = datetime.now()
+    respostas['timestamp'] = timestamp.isoformat()
+    
+    # Garante que o diretório de respostas exista
     os.makedirs('respostas', exist_ok=True)
-    arquivo = f"respostas/resposta_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-    with open(arquivo, 'w', encoding='utf-8') as f:
+
+    # 1. Salvar em arquivo JSON individual (comportamento original)
+    arquivo_json = f"respostas/resposta_{timestamp.strftime('%Y%m%d_%H%M%S')}.json"
+    with open(arquivo_json, 'w', encoding='utf-8') as f:
         json.dump(respostas, f, ensure_ascii=False, indent=4)
-    return arquivo
+
+    # 2. Salvar/Anexar em um arquivo CSV consolidado (nova funcionalidade)
+    try:
+        # Normaliza (achata) o dicionário de respostas para que ele possa ser salvo no formato de tabela
+        df_resposta = pd.json_normalize(respostas)
+        
+        arquivo_csv = 'respostas/respostas_consolidadas.csv'
+        
+        # Verifica se o arquivo CSV já existe para decidir se o cabeçalho deve ser escrito
+        escrever_cabecalho = not os.path.exists(arquivo_csv)
+        
+        # Anexa a nova resposta ao arquivo CSV
+        # mode='a' significa 'append' (anexar)
+        # encoding='utf-8-sig' é recomendado para compatibilidade com Excel
+        df_resposta.to_csv(
+            arquivo_csv, 
+            mode='a', 
+            header=escrever_cabecalho, 
+            index=False, 
+            encoding='utf-8-sig'
+        )
+    except Exception as e:
+        st.error(f"Ocorreu um erro ao salvar o arquivo CSV: {e}")
 
 def carregar_respostas():
-    """Carrega todas as respostas dos arquivos JSON"""
+    """Carrega todas as respostas dos arquivos JSON (para o dashboard)"""
     respostas = []
     if os.path.exists('respostas'):
+        # Ordena os arquivos para garantir a ordem cronológica na análise temporal
         for arquivo in sorted(os.listdir('respostas')):
             if arquivo.endswith('.json'):
                 with open(f'respostas/{arquivo}', 'r', encoding='utf-8') as f:
@@ -175,7 +204,7 @@ def carregar_respostas():
     return respostas
 
 def criar_dataframe_respostas(respostas):
-    """Converte as respostas em um DataFrame"""
+    """Converte a lista de respostas em um DataFrame"""
     if not respostas:
         return pd.DataFrame()
     df = pd.json_normalize(respostas)
@@ -231,7 +260,7 @@ def mostrar_resultados(df):
             st.plotly_chart(fig, use_container_width=True)
 
 def main():
-    st.title("📝 Pesquisa de Clima Organizacional - IN Junior")
+    st.title("🐺 Pesquisa de Clima Organizacional - IN Junior")
 
     tab1, tab2 = st.tabs(["Responder Pesquisa", "Ver Resultados"])
 
@@ -239,22 +268,17 @@ def main():
         st.header("🗣️ Sua opinião é importante!")
 
         with st.form("formulario_pesquisa"):
-            # ## CORREÇÃO 1: Criar um dicionário para guardar as respostas do formulário
             respostas_form = {}
-            
             for secao, conteudo in PERGUNTAS.items():
                 st.subheader(conteudo['titulo'])
                 respostas_form[secao] = {}
-                
                 for campo, config in conteudo['campos'].items():
-                    # ## CORREÇÃO 2: Remover o parâmetro 'required' que não existe na maioria dos widgets
-                    # A validação será feita manualmente após o envio.
                     if config['tipo'] == 'text':
                         respostas_form[secao][campo] = st.text_input(config['texto'], key=f"{secao}.{campo}")
                     elif config['tipo'] == 'selectbox':
                         respostas_form[secao][campo] = st.selectbox(config['texto'], options=config['opcoes'], key=f"{secao}.{campo}")
                     elif config['tipo'] == 'number':
-                        respostas_form[secao][campo] = st.number_input(config['texto'], min_value=config.get('min_value'), max_value=config.get('max_value'), key=f"{secao}.{campo}", value=None)
+                        respostas_form[secao][campo] = st.number_input(config['texto'], min_value=config.get('min_value'), max_value=config.get('max_value'), key=f"{secao}.{campo}", value=None, placeholder="Digite um número...")
                     elif config['tipo'] == 'slider':
                         respostas_form[secao][campo] = st.slider(config['texto'], min_value=config['min_value'], max_value=config['max_value'], key=f"{secao}.{campo}")
                     elif config['tipo'] == 'text_area':
@@ -263,13 +287,11 @@ def main():
             submitted = st.form_submit_button("Enviar Respostas")
             
             if submitted:
-                # ## CORREÇÃO 3: Fazer a validação manual dos campos obrigatórios
                 erros = []
                 for secao, conteudo in PERGUNTAS.items():
                     for campo, config in conteudo['campos'].items():
                         if config['obrigatorio']:
                             resposta = respostas_form[secao][campo]
-                            # Verifica se a resposta está vazia ou é None
                             if resposta is None or str(resposta).strip() == "":
                                 erros.append(f"O campo '{config['texto']}' é obrigatório.")
 
@@ -277,12 +299,9 @@ def main():
                     for erro in erros:
                         st.error(erro)
                 else:
-                    # ## CORREÇÃO 4: Usar o dicionário 'respostas_form' que contém os valores corretos
                     salvar_resposta(respostas_form)
                     st.success("Respostas salvas com sucesso! Obrigado pela participação!")
                     st.balloons()
-                    # A limpeza do formulário não é mais necessária, pois o Streamlit
-                    # lida com o re-render da página após a submissão.
 
     with tab2:
         respostas = carregar_respostas()
