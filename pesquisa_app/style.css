@@ -6,3 +6,12 @@
     border-radius: 4px;
     cursor: pointer;
 }
+.stButton > button:hover {
+    background-color: #45a049;
+}
+#pesquisa-de-clima-organizacional-in-junior {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
