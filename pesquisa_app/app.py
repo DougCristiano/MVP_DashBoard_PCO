@@ -8,7 +8,9 @@ import os
 # Importa as perguntas do arquivo de configuração
 from perguntas_config import PERGUNTAS
 
-# Configurações da página
+with open('style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
 st.set_page_config(
     page_title="Pesquisa de Clima - IN Junior",
     page_icon=":wolf:",
@@ -18,7 +20,6 @@ st.set_page_config(
     }
 )
 
-# --- Funções de salvamento e carregamento (sem alterações) ---
 def salvar_resposta(respostas):
     """Salva as respostas em um arquivo JSON e anexa a um arquivo CSV."""
     timestamp = datetime.now()
@@ -65,7 +66,6 @@ def criar_dataframe_respostas(respostas):
         df['timestamp'] = pd.to_datetime(df['timestamp'])
     return df
 
-# --- Função do Dashboard de Resultados (sem alterações) ---
 def mostrar_resultados(df):
     """Mostra visualizações dos resultados"""
     if df.empty:
@@ -134,7 +134,7 @@ def mostrar_resultados(df):
     else:
         st.info("Aguardando mais respostas para exibir as médias por categoria.")
 
-# --- Função Principal (GRANDES ALTERAÇÕES AQUI) ---
+
 def main():
     st.title(":wolf: Pesquisa de Clima Organizacional - IN Junior")
 
